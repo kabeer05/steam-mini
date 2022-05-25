@@ -5,7 +5,14 @@ export interface GetRecentlyPlayedGames {
         total_count: number;
         games: SteamGame[];
     }
-  };
+};
+
+export interface GetTopGames {
+    response: {
+        game_count: number;
+        games: SteamGame[];
+    }
+};
 
 export interface ResponseRecentlyPlayed {
     appid: string;
@@ -18,3 +25,10 @@ export interface ResponseSteamUser {
         players: SteamUser[];
     }
 }
+
+export interface ResponseTopGames {
+    appid: string
+    name: string
+    image: string
+    playtime: number
+};

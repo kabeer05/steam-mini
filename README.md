@@ -25,8 +25,12 @@ const steam = new SteamMini("<YOUR-STEAM-API-KEY>")
 const user = await steam.getUser("<STEAM-USER-ID>")
 
 // Get the most recently played games in 2 weeks playtime, default return limit is 1 and maximum is 5
-//If no games are played an empty array [] is returned
+// If no games are played, an empty array [] is returned
 const recentlyPlayed = await steam.getRecentlyPlayed("<STEAM-USER-ID>", 4)
+
+// Get first 5 top games, sorted by playtime
+// If a user doesn't have any games, an empty array [] is returned
+const recentlyPlayed = await steam.getTopGames("<STEAM-USER-ID>")
 ```
 
 <br/>
@@ -67,6 +71,23 @@ const recentlyPlayed = await steam.getRecentlyPlayed("<STEAM-USER-ID>", 4)
         <th>limit</th>
         <th>number (1 <= n <= 5)</th>
         <th>Limit the number of recently played games to return. (default: 1)</th>
+    </tr>
+</table>
+
+<br/>
+
+### <u>**getTopGames()**</u>
+
+<table>
+    <tr>
+        <th>Options</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <th>steamid</th>
+        <th>string</th>
+        <th>The Steam User ID of the player to get the info of.</th>
     </tr>
 </table>
 

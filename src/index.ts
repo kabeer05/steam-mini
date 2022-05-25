@@ -1,10 +1,11 @@
 import fetch from "node-fetch";
-import { GetRecentlyPlayedGames, ResponseSteamUser } from './types/SteamMini'
-import { filterRecent } from "./utils";
+import { GetRecentlyPlayedGames, ResponseSteamUser, GetTopGames } from './types/SteamMini'
+import { filterRecent, filterTop } from "./utils";
 
 const endpoints = {
     getUser: "/ISteamUser/GetPlayerSummaries/v0002/",
     recentlyPlayed: "/IPlayerService/GetRecentlyPlayedGames/v0001/",
+    topGames: "/IPlayerService/GetOwnedGames/v0001/"
 }
 
 const reID = /^\d{17}$/;
@@ -37,11 +38,26 @@ class SteamMini {
             if (limit < 1 || limit > 5) throw new Error('Limit should be between 1 to 5')
             const response = await fetch(`${this.baseUrl}${endpoints.recentlyPlayed}?key=${this.apiKey}&steamid=${steamid}&limit=${limit}`)
             const data = (await response.json()) as GetRecentlyPlayedGames
-            if (!data.response?.games) return []
+            if (!data.response?.games || !data.response?.total_count) return []
             const recentGames = data.response.games.map(game => {
                 return filterRecent(game)
             })
             return recentGames
+        } catch(err: any) {
+            throw new Error(err)
+        }
+    }
+
+    public async getTopGames(steamid: string) {
+        try {
+            if (!steamid || !reID.test(steamid)) throw new Error('No/Invalid Steam User ID provided')
+            const response = await fetch(`${this.baseUrl}${endpoints.topGames}?key=${this.apiKey}&steamid=${steamid}&include_appinfo=true`)
+            const data = (await response.json()) as GetTopGames
+            if (!data.response?.games || !data.response?.game_count) return []
+            const topGames = data.response.games.map(game => {
+                return filterTop(game)
+            }).sort((a, b) => b.playtime - a.playtime).slice(0, 5)
+            return topGames
         } catch(err: any) {
             throw new Error(err)
         }
