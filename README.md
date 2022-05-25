@@ -30,14 +30,14 @@ const recentlyPlayed = await steam.getRecentlyPlayed("<STEAM-USER-ID>", 4)
 
 // Get first 5 top games, sorted by playtime
 // If a user doesn't have any games, an empty array [] is returned
-const recentlyPlayed = await steam.getTopGames("<STEAM-USER-ID>")
+const topGames = await steam.getTopGames("<STEAM-USER-ID>")
 ```
 
 <br/>
 
 # Methods
 
-### <u>**getUser()**</u>
+### **getUser()**&nbsp;&nbsp;&nbsp;`Promise<Object>`
 
 <table>
     <tr>
@@ -54,7 +54,7 @@ const recentlyPlayed = await steam.getTopGames("<STEAM-USER-ID>")
 
 <br/>
 
-### <u>**getRecentlyPlayed()**</u>
+### **getRecentlyPlayed()**&nbsp;&nbsp;&nbsp;`Promise<Array>`
 
 <table>
     <tr>
@@ -76,7 +76,7 @@ const recentlyPlayed = await steam.getTopGames("<STEAM-USER-ID>")
 
 <br/>
 
-### <u>**getTopGames()**</u>
+### **getTopGames()**&nbsp;&nbsp;&nbsp;`Promise<Array>`
 
 <table>
     <tr>
