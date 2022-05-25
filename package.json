@@ -1,5 +1,6 @@
 {
   "name": "steam-mini",
+  "description": "Simple Steam wrapper exposing some useful methods",
   "version": "1.0.0",
   "main": "dist/index.js",
   "repository": "https://github.com/kabeerarora/steam-mini.git",

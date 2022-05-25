@@ -1,10 +1,10 @@
 # steam-mini
-### Simple Steam wrapper exposing some useful methods
+#### Simple Steam wrapper exposing some useful methods
 
 <br/>
 
 # Requirements
-Get a <a href="https://steamcommunity.com/dev/apikey">Steam API Key</a> for the package.
+#### Get a <a href="https://steamcommunity.com/dev/apikey">Steam API Key</a> for the package.
 
 <br/>
 
@@ -33,7 +33,7 @@ const recentlyPlayed = await steam.getRecentlyPlayed("<STEAM-USER-ID>", 4)
 
 # Methods
 
-### <strong>getUser</strong>
+### <u>**getUser()**</u>
 
 <table>
     <tr>
@@ -50,7 +50,7 @@ const recentlyPlayed = await steam.getRecentlyPlayed("<STEAM-USER-ID>", 4)
 
 <br/>
 
-### <strong>getRecentlyPlayed</strong>
+### <u>**getRecentlyPlayed()**</u>
 
 <table>
     <tr>
@@ -69,3 +69,7 @@ const recentlyPlayed = await steam.getRecentlyPlayed("<STEAM-USER-ID>", 4)
         <th>Limit the number of recently played games to return. (default: 1)</th>
     </tr>
 </table>
+
+<br/>
+
+> **Note**: A JSON Error **might** come up if API Key or Steam ID is invalid.
