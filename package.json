@@ -1,7 +1,7 @@
 {
   "name": "steam-mini",
   "description": "Simple Steam wrapper exposing some useful methods",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "repository": "https://github.com/kabeerarora/steam-mini.git",
   "author": "Glitter <77068315+kabeerarora@users.noreply.github.com>",
