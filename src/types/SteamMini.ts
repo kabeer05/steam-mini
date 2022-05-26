@@ -18,6 +18,7 @@ export interface ResponseRecentlyPlayed {
     appid: string;
     name: string;
     image: string;
+    url: string
 }
 
 export interface ResponseSteamUser {
@@ -30,5 +31,6 @@ export interface ResponseTopGames {
     appid: string
     name: string
     image: string
+    url: string
     playtime: number
 };
