@@ -25,7 +25,6 @@ class SteamMini {
             if (!steamid || !reID.test(steamid)) throw new Error('No/Invalid Steam User ID provided')
             const response = await fetch(`${this.baseUrl}${endpoints.getUser}?key=${this.apiKey}&steamids=${steamid}`)
             const data = (await response.json()) as ResponseSteamUser
-            if (!data) return {}
             return data.response.players[0]
         } catch(err: any) {
             throw new Error(err)
