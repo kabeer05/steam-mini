@@ -1,5 +1,5 @@
 # steam-mini
-#### Simple Steam wrapper exposing some useful methods
+#### Simple Steam API wrapper exposing some useful methods
 
 <br/>
 
@@ -17,7 +17,7 @@ yarn add steam-mini
 
 # Usage
 ```js
-const { SteamMini } = require('steam-mini')
+import { SteamMini } from 'steam-mini'
 
 const steam = new SteamMini("<YOUR-STEAM-API-KEY>")
 
