@@ -1,41 +1,45 @@
-# steam-mini
+# Steam Mini
+
 #### Simple Steam API wrapper exposing some useful methods
 
 <br/>
 
-# Requirements
+## Requirements
+
 #### Get a <a href="https://steamcommunity.com/dev/apikey">Steam API Key</a> for the package.
 
 <br/>
 
-# Installation
+## Installation
+
 ```js
 yarn add steam-mini
 ```
 
 <br/>
 
-# Usage
-```js
-import { SteamMini } from 'steam-mini'
+## Usage
 
-const steam = new SteamMini("<YOUR-STEAM-API-KEY>")
+```js
+import { SteamMini } from "steam-mini";
+
+const steam = new SteamMini("<YOUR-STEAM-API-KEY>");
 
 // Get info about a steam user by their id
-const user = await steam.getUser("<STEAM-USER-ID>")
+const user = await steam.getUser("<STEAM-USER-ID>");
 
 // Get the most recently played games in 2 weeks playtime, default return limit is 1 and maximum is 5
 // If no games are played, an empty array [] is returned
-const recentlyPlayed = await steam.getRecentlyPlayed("<STEAM-USER-ID>", 4)
+const recentlyPlayed = await steam.getRecentlyPlayed("<STEAM-USER-ID>", 4);
 
 // Get first 5 top games, sorted by playtime
 // If a user doesn't have any games, an empty array [] is returned
-const topGames = await steam.getTopGames("<STEAM-USER-ID>")
+const topGames = await steam.getTopGames("<STEAM-USER-ID>");
 ```
 
 <br/>
 
-# Methods
+## Methods
 
 ### **getUser()**&nbsp;&nbsp;&nbsp;`Promise<Object>`
 
@@ -94,3 +98,7 @@ const topGames = await steam.getTopGames("<STEAM-USER-ID>")
 <br/>
 
 > **Note**: A JSON Error **might** come up if API Key or Steam ID is invalid.
+
+## License
+
+Reactive Resume is packaged and distributed using the [MIT License](/LICENSE.md) which allows for commercial use, distribution, modification and private use provided that all copies of the software contain the same license and copyright.
