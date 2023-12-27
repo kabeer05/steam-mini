@@ -101,4 +101,4 @@ const topGames = await steam.getTopGames("<STEAM-USER-ID>");
 
 ## License
 
-Reactive Resume is packaged and distributed using the [MIT License](/LICENSE.md) which allows for commercial use, distribution, modification and private use provided that all copies of the software contain the same license and copyright.
+Steam Mini is packaged and distributed using the [MIT License](/LICENSE.md) which allows for commercial use, distribution, modification and private use provided that all copies of the software contain the same license and copyright.
