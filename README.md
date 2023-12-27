@@ -13,7 +13,7 @@
 ## Installation
 
 ```js
-yarn add steam-mini
+yarn add node-steam-mini
 ```
 
 <br/>
@@ -21,7 +21,7 @@ yarn add steam-mini
 ## Usage
 
 ```js
-import { SteamMini } from "steam-mini";
+import { SteamMini } from "node-steam-mini";
 
 const steam = new SteamMini("<YOUR-STEAM-API-KEY>");
 

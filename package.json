@@ -1,5 +1,5 @@
 {
-  "name": "steam-mini",
+  "name": "node-steam-mini",
   "description": "Simple Steam API wrapper exposing some useful methods",
   "version": "1.0.0",
   "main": "dist/index.js",
