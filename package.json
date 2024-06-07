@@ -25,5 +25,8 @@
   "homepage": "https://github.com/kabeer05/steam-mini#readme",
   "dependencies": {
     "undici": "^6.18.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.2"
   }
 }
