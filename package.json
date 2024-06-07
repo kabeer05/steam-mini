@@ -1,0 +1,25 @@
+{
+  "name": "steam-mini",
+  "version": "1.0.0",
+  "description": "Simple Steam API wrapper exposing some useful methods",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kabeer05/steam-mini.git"
+  },
+  "keywords": [
+    "steam",
+    "wrapper",
+    "api",
+    "steam-api"
+  ],
+  "author": "Kabeer Arora",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kabeer05/steam-mini/issues"
+  },
+  "homepage": "https://github.com/kabeer05/steam-mini#readme"
+}
