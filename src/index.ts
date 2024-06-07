@@ -1,4 +1,5 @@
-import undici, { Headers } from "undici";
+import undici from "undici";
+import type { SteamUser } from "./types";
 
 // Define useful endpoints for Steam API calls
 const endpoints: {
@@ -22,9 +23,11 @@ class SteamMini {
   private readonly apiKey: string;
   private readonly baseUrl = "https://api.steampowered.com/";
 
+  static steamUserID = RegExp(/^\d{17}$/, "i"); // Regex to validate 64 bit Steam IDs
+
   /**
    * Constructor to initialize the SteamMini class with an API key.
-   * @param apiKey - The API key for authenticating with the Steam API.
+   * @param {string} apiKey - The API key for authenticating with the Steam API.
    * @throws Will throw an error if the API key is not provided.
    */
   constructor(apiKey: string) {
@@ -35,8 +38,9 @@ class SteamMini {
 
   /**
    * Private method to make HTTP requests to the Steam API.
-   * @param endpoint - The specific API endpoint to call.
-   * @param params - The query parameters to include in the API call.
+   * @param {string} endpoint - The specific API endpoint to call.
+   * @param {URLSearchParams} params - The query parameters to include in the API call.
+   * @param {string} base - The base URL to make the request to.
    * @returns A promise that resolves to the response data.
    * @throws Will throw an error if the response status code is not 200 or if there's another error.
    */
@@ -69,4 +73,26 @@ class SteamMini {
       }
     }
   }
+
+  /**
+   * Method to retrieve a single user's information from the Steam API using a 64 bit Steam ID.
+   * @param {string} steamId - The 64 bit Steam ID of the user to retrieve information for.
+   * @returns A promise that resolves to the Steam user information.
+   * @throws Will throw an error if the Steam ID is invalid or if the request fails.
+   */
+  public async getUserInfo(steamId: string): Promise<SteamUser> {
+    // Check if the steamId is valid or not empty and matches the 64 Bit Steam ID format
+    if (!steamId || !SteamMini.steamUserID.test(steamId))
+      throw new Error("Invalid Steam ID was provided.");
+
+    const params = new URLSearchParams({ steamids: steamId });
+    try {
+      const data = await this._request(endpoints.getUser, params);
+      return data.response.players[0]; // Return the first user object from the response data
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
 }
+
+export default SteamMini;
