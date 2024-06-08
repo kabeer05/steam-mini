@@ -1,5 +1,5 @@
 import undici from "undici";
-import type { SteamUser } from "./types";
+import type { SteamGame, SteamUser } from "./types";
 
 // Define useful endpoints for Steam API calls
 const endpoints: {
@@ -89,6 +89,33 @@ class SteamMini {
     try {
       const data = await this._request(endpoints.getUser, params);
       return data.response.players[0]; // Return the first user object from the response data
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
+
+  /**
+   * Method to retrieve a user's recently played games from the Steam API using a 64 bit Steam ID.
+   * @param {string} steamId - The 64 bit Steam ID of the user to retrieve recently played games for.
+   * @param {number} count - The number of recently played games to retrieve (default is 3).
+   * @returns A promise that resolves to an array of recently played games.
+   * @throws Will throw an error if the Steam ID is invalid or if the request fails.
+   */
+  public async getRecentlyPlayedGames(
+    steamId: string,
+    count: number = 3
+  ): Promise<SteamGame[]> {
+    // Check if the steamId is valid or not empty and matches the 64 Bit Steam ID format
+    if (!steamId || !SteamMini.steamUserID.test(steamId))
+      throw new Error("Invalid Steam ID was provided.");
+
+    const params = new URLSearchParams({
+      steamid: steamId,
+      count: count.toString(),
+    });
+    try {
+      const data = await this._request(endpoints.recentlyPlayed, params);
+      return data.response.games; // Return the games array from the response data
     } catch (error: any) {
       throw new Error(error.message);
     }
