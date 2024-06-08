@@ -7,7 +7,7 @@ const endpoints: {
 } = {
   getUser: "/ISteamUser/GetPlayerSummaries/v0002/",
   recentlyPlayed: "/IPlayerService/GetRecentlyPlayedGames/v0001/",
-  topGames: "/IPlayerService/GetOwnedGames/v0001/",
+  mostPlayed: "/IPlayerService/GetOwnedGames/v0001",
 };
 
 // Define HTTP status codes and their corresponding error messages
@@ -28,6 +28,10 @@ class SteamMini {
   /**
    * Constructor to initialize the SteamMini class with an API key.
    * @param {string} apiKey - The API key for authenticating with the Steam API.
+   * @example
+   * ```js
+   * const steam = new SteamMini("YOUR_API_KEY");
+   * ```
    * @throws Will throw an error if the API key is not provided.
    */
   constructor(apiKey: string) {
@@ -49,7 +53,9 @@ class SteamMini {
     params: URLSearchParams,
     base: string = this.baseUrl
   ): Promise<any> {
-    const url = `${base}${endpoint}?key=${this.apiKey}&${params.toString()}`;
+    const url = `${base}${endpoint}?key=${
+      this.apiKey
+    }&${params.toString()}&format=json`;
     try {
       const response = await undici.request(url);
 
@@ -77,6 +83,11 @@ class SteamMini {
   /**
    * Method to retrieve a single user's information from the Steam API using a 64 bit Steam ID.
    * @param {string} steamId - The 64 bit Steam ID of the user to retrieve information for.
+   * @example
+   * ```js
+   * const userInfo = await steam.getUserInfo("76561198916391289");
+   * console.log(userInfo);
+   * ```
    * @returns A promise that resolves to the Steam user information.
    * @throws Will throw an error if the Steam ID is invalid or if the request fails.
    */
@@ -98,6 +109,11 @@ class SteamMini {
    * Method to retrieve a user's recently played games from the Steam API using a 64 bit Steam ID.
    * @param {string} steamId - The 64 bit Steam ID of the user to retrieve recently played games for.
    * @param {number} count - The number of recently played games to retrieve (default is 3).
+   * @example
+   * ```js
+   * const recentlyPlayedGames = await steam.getRecentlyPlayedGames("76561198916391289", 5);
+   * console.log(recentlyPlayedGames);
+   * ```
    * @returns A promise that resolves to an array of recently played games.
    * @throws Will throw an error if the Steam ID is invalid or if the request fails.
    */
@@ -115,7 +131,78 @@ class SteamMini {
     });
     try {
       const data = await this._request(endpoints.recentlyPlayed, params);
-      return data.response.games; // Return the games array from the response data
+      return data.response.games.map((game: any) => {
+        return {
+          appid: game.appid,
+          name: game.name,
+          playtime_2weeks: game.playtime_2weeks || 0,
+          playtime_forever: game.playtime_forever,
+          img_icon_url: game.img_icon_url,
+          playtime_windows_forever: game.playtime_windows_forever,
+          playtime_mac_forever: game.playtime_mac_forever,
+          playtime_linux_forever: game.playtime_linux_forever,
+        };
+      }); // Return the mapped games array from the response data
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
+
+  /**
+   * Method to retrieve a user's most played games from the Steam API using a 64 bit Steam ID.
+   * @param {string} steamId - The 64 bit Steam ID of the user to retrieve most played games for.
+   * @param {number} count - The number of most played games to retrieve (default is 3).
+   * @param {object} options - Additional options for the request (default is { includePlayedFreeGames: false, includeAppInfo: true }).
+   * @example
+   * ```js
+   * const mostPlayedGames = await steam.getMostPlayed("76561198916391289", 5);
+   * console.log(mostPlayedGames);
+   * ```
+   * @returns A promise that resolves to an array of most played games.
+   * @throws Will throw an error if the Steam ID is invalid or if the request fails.
+   */
+  public async getMostPlayed(
+    steamId: string,
+    count: number = 3,
+    options: { includePlayedFreeGames: boolean; includeAppInfo: boolean } = {
+      includePlayedFreeGames: false,
+      includeAppInfo: true,
+    }
+  ): Promise<SteamGame[]> {
+    // Check if the steamId is valid or not empty and matches the 64 Bit Steam ID format
+    if (!steamId || !SteamMini.steamUserID.test(steamId))
+      throw new Error("Invalid Steam ID was provided.");
+
+    if (count < 1 || count > 10)
+      throw new Error("Count must be between 1 and 10.");
+
+    const params = new URLSearchParams({
+      steamid: steamId,
+      count: count.toString(),
+      include_played_free_games: options.includePlayedFreeGames ? "1" : "0",
+      include_appinfo: options.includeAppInfo ? "1" : "0",
+    });
+    try {
+      const data = await this._request(endpoints.mostPlayed, params);
+      return data.response.games
+        .map((game: any) => {
+          return {
+            appid: game.appid,
+            name: game.name,
+            playtime_2weeks: game.playtime_2weeks || 0,
+            playtime_forever: game.playtime_forever,
+            img_icon_url: game.img_icon_url,
+            playtime_windows_forever: game.playtime_windows_forever,
+            playtime_mac_forever: game.playtime_mac_forever,
+            playtime_linux_forever: game.playtime_linux_forever,
+          };
+        })
+        .sort(
+          (a: SteamGame, b: SteamGame) =>
+            b.playtime_forever -
+            a.playtime_forever /* Sort the games array by playtime_forever in descending order */
+        )
+        .slice(0, count); // Return the most played games array from the response data
     } catch (error: any) {
       throw new Error(error.message);
     }
