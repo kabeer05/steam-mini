@@ -209,4 +209,4 @@ class SteamMini {
   }
 }
 
-export default SteamMini;
+export { SteamMini };
