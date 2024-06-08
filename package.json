@@ -3,8 +3,13 @@
   "version": "1.0.0",
   "description": "Simple Steam API wrapper exposing some useful methods",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "funding": "https://ko-fi.com/kabeerarora",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rm -rf dist && tsc"
   },
   "type": "module",
   "repository": {
@@ -17,7 +22,11 @@
     "api",
     "steam-api"
   ],
-  "author": "Kabeer Arora",
+  "author": {
+    "email": "kabeerarora13@gmail.com",
+    "name": "Kabeer Arora",
+    "url": "https://kabeerarora.tech"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/kabeer05/steam-mini/issues"
