@@ -1,5 +1,5 @@
 {
-  "name": "steam-mini",
+  "name": "steam-mini-api",
   "version": "1.0.0",
   "description": "Simple Steam API wrapper exposing some useful methods",
   "main": "dist/index.js",
@@ -33,6 +33,9 @@
   },
   "homepage": "https://github.com/kabeer05/steam-mini#readme",
   "dependencies": {
+    "ava": "^6.1.3",
+    "dotenv": "^16.4.5",
+    "sinon": "^18.0.0",
     "undici": "^6.18.2"
   },
   "devDependencies": {
