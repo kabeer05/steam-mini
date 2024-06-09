@@ -99,7 +99,17 @@ class SteamMini {
     const params = new URLSearchParams({ steamids: steamId });
     try {
       const data = await this._request(endpoints.getUser, params);
-      return data.response.players[0]; // Return the first user object from the response data
+      const userinfo = data.response.players[0]; // Return the first user object from the response data
+      return {
+        steamid: userinfo.steamid,
+        avatar: userinfo.avatar,
+        avatarmedium: userinfo.avatarmedium,
+        avatarfull: userinfo.avatarfull,
+        personaname: userinfo.personaname,
+        profileurl: userinfo.profileurl,
+        personastate: userinfo.personastate,
+        lastlogoff: userinfo.lastlogoff,
+      };
     } catch (error: any) {
       throw new Error(error.message);
     }

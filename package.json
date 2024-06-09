@@ -9,7 +9,8 @@
   ],
   "funding": "https://ko-fi.com/kabeerarora",
   "scripts": {
-    "build": "rm -rf dist && tsc"
+    "build": "rm -rf dist && tsc",
+    "test": "npm run build && ava"
   },
   "type": "module",
   "repository": {
@@ -33,12 +34,13 @@
   },
   "homepage": "https://github.com/kabeer05/steam-mini#readme",
   "dependencies": {
-    "ava": "^6.1.3",
-    "dotenv": "^16.4.5",
-    "sinon": "^18.0.0",
     "undici": "^6.18.2"
   },
   "devDependencies": {
-    "@types/node": "^20.14.2"
+    "@types/node": "^20.14.2",
+    "@types/sinon": "^17.0.3",
+    "ava": "^6.1.3",
+    "dotenv": "^16.4.5",
+    "sinon": "^18.0.0"
   }
 }
