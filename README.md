@@ -76,7 +76,7 @@ const topGames = await steam.getMostPlayed("<STEAM-USER-ID>", 4, {
 
 <br/>
 
-### **getTopGames()**&nbsp;&nbsp;&nbsp;`Promise<Array>`
+### **getMostPlayed()**&nbsp;&nbsp;&nbsp;`Promise<Array>`
 
 <table>
     <tr>
@@ -91,7 +91,7 @@ const topGames = await steam.getMostPlayed("<STEAM-USER-ID>", 4, {
     </tr>
     <tr>
         <th>count</th>
-        <th>number (1 <= n <= 10>)</th>
+        <th>number (1 <= n <= 10)</th>
         <th>Count of recently played games to return. (Default: 3)</th>
     </tr>
     <tr>
